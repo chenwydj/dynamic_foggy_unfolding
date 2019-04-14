@@ -33,7 +33,7 @@ from bdd.encoding.models import get_segmentation_model
 from bdd.experiments.segmentation.option import Options
 
 opt_seg = Options()#.parse()
-opt_seg.dataset = "bdd100k_seg"
+opt_seg.dataset = "cityscapes"
 opt_seg.model = "fcn"
 opt_seg.backbone = "resnet50"
 opt_seg.dilated = True

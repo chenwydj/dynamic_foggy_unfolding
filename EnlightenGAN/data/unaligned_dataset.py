@@ -125,7 +125,7 @@ class UnalignedDataset(BaseDataset):
         # mask_B = Image.open(mask_B_path)
 
         w, h = A_image.size
-        if self.opt == "train":
+        if self.opt.phase == "train":
             short_size = random.randint(int(h*0.5), int(h*1.25))
             oh = short_size
             ow = int(1.0 * w * oh / h)
@@ -135,7 +135,7 @@ class UnalignedDataset(BaseDataset):
             # mask_B = mask_B.resize((ow, oh), Image.NEAREST)
         w, h = A_image.size
 
-        if self.opt == "val":
+        if self.opt.phase == "val":
             # whole image/mask #####################
             A_img = A_image
             B_img = B_image
