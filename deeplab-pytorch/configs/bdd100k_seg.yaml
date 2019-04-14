@@ -1,0 +1,59 @@
+EXP:
+    ID: bdd100k_seg
+    OUTPUT_DIR: data
+
+DATASET:
+    NAME: bdd100k_seg
+    ROOT: /ssd1/chenwy/bdd100k #/seg
+    # LABELS: ./data/datasets/voc12/labels.txt
+    N_CLASSES: 19
+    IGNORE_LABEL: 255
+    SCALES: [0.75, 1.0, 1.25] # [0.5, 0.75, 1.0, 1.25, 1.5]
+    SPLIT:
+        TRAIN: train
+        VAL: val
+        TEST: test
+
+DATALOADER:
+    NUM_WORKERS: 10
+
+IMAGE:
+    MEAN:
+        R: 122.675
+        G: 116.669
+        B: 104.008
+    SIZE:
+        BASE: 720
+        TRAIN: 400 # crop_size
+        TEST: 400
+
+MODEL:
+    # NAME: DeepLabV2_ResNet101_MSC
+    NAME: DeepLabV3Plus_ResNet101_MSC
+    N_BLOCKS: [3, 4, 23, 3]
+    ATROUS_RATES: [6, 12, 18, 24]
+    # INIT_MODEL: data/models/coco/deeplabv1_resnet101/caffemodel/deeplabv1_resnet101-coco.pth
+
+SOLVER:
+    BATCH_SIZE:
+        TRAIN: 6
+        TEST: 1
+    ITER_MAX: 240000 # 60000 is ~ 1 epoch for 3500 images with 6 as batchsize
+    ITER_SIZE: 2 # for late update
+    ITER_SAVE: 5000
+    ITER_TB: 100 # TensorBoard
+    LR_DECAY: 6000 # step_size in PolynomialLR
+    LR: 3.0e-3
+    MOMENTUM: 0.9
+    OPTIMIZER: sgd
+    POLY_POWER: 0.9
+    WEIGHT_DECAY: 5.0e-4
+    AVERAGE_LOSS: 20
+
+CRF:
+    ITER_MAX: 10
+    POS_W: 3
+    POS_XY_STD: 1
+    BI_W: 4
+    BI_XY_STD: 67
+    BI_RGB_STD: 3
